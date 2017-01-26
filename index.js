@@ -7,41 +7,23 @@
  *
  */
 
-const program = require('commander');
-const chalk =  require("chalk");
 const pkg = require('./package.json');
+const cfg = require('./config.json');
+const app = require('commander');
 
-{
-    program
+var browserstack = require('./services/browserstack').init(cfg);
 
-        .version(pkg.version)
+// register all commands
+require('./commands/info').init(app, browserstack);
+require('./commands/test').init(app, cfg);
 
-        .command('command <req> [optional]')
+// current app version
+app.version(pkg.version);
 
-        .description('command description')
+// notice that we have to parse in a new statement.
+app.parse(process.argv);
 
-        .option('-o, --option','we can still have add l options')
-
-        .action(function(req,optional) {
-
-            console.log(chalk.green.bold.underline("INFO EXAMPLE: ") + '.action() allows us to implement the command');
-            console.log(chalk.green.bold.underline("INFO EXAMPLE: ") + 'User passed %s', req);
-            console.log(chalk.red.bold.underline("ERROR EXAMPLE: package version " + pkg.version));
-
-            if (optional) {
-                optional.forEach(function(opt){
-                    console.log("User passed optional arguments: %s", opt);
-                });
-            }
-
-        })
-
-        ;
-
-    program.parse(process.argv); // notice that we have to parse in a new statement.
-
-    // if program was called with no arguments, show help.
-    if (program.args.length === 0) program.help();
-}
+// if program was called with no arguments, show help.
+if (app.args.length === 0) app.help();
 
 // node index.js command requiredValue -o

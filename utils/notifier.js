@@ -1,5 +1,24 @@
-const chalk =  require("chalk");
+'use strict';
 
-console.log(chalk.green.bold.underline("INFO EXAMPLE: ") + '.action() allows us to implement the command');
-console.log(chalk.green.bold.underline("INFO EXAMPLE: ") + 'User passed %s', req);
-console.log(chalk.red.bold.underline("ERROR EXAMPLE"));
+const chalk =  require('chalk');
+const moment = require('moment');
+
+function now() {
+    return moment().format('DD-MM-YYYY|hh:mm:ss');
+}
+
+module.exports = {
+    error : function (msg, err) {
+        console.error(chalk.red.bold.underline( "[ERROR][" + now() + "]: " + msg ));
+        if (err) console.error(err);
+    },
+
+    warning : function (msg) {
+        console.warn(chalk.red.bold.underline( "[WARNING][" + now() + "]: " + msg ));
+    },
+
+    info : function(msg, data) {
+        console.info(chalk.green.bold.underline( "[INFO][" + now() + "]: " + msg ));
+        if (data) console.info(err);
+    }
+};
