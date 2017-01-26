@@ -1,0 +1,23 @@
+node_modules
+typings
+
+*~
+.DS_Store
+
+/npm-debug.log
+
+.vscode
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+
+# IDEA / WebStorm files
+.idea
+
+**/*.log
+
+tmp/*
