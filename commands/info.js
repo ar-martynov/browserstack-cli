@@ -14,7 +14,7 @@ function init(app, bs) {
 
     app
         .command('info')
-        .description('"Browser stack" supporting browser info.')
+        .description('"Browser stack" supported browser info.')
         .option('-s, --screenshot', 'The following browsers are available for screen shots', printScreenshotApiInfo)
         .option('-a, --automate', 'The following browsers are available for automated testing', printAutomateApiInfo)
         .action(printApiInfo)
@@ -45,10 +45,9 @@ function printAutomateApiInfo() {
 }
 
 function printApiInfo() {
-
     browserstack.client.getBrowsers(function(error, browsers) {
         if (error) {
-            notifier.error("Error while retrieving supported browsers info", error); return;
+            notifier.error("Error while retrieving supported browsers", error); return;
         }
 
         notifier.info("The following browsers are supporting");
