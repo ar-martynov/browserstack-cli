@@ -1,4 +1,4 @@
-const BrowserStack = require("browserstack");
+const BrowserStack = require('../api/browserstack');
 
 module.exports = {
     'init': init
