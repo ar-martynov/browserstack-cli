@@ -8,7 +8,7 @@ const Promise = require('bluebird');
 const defaultOptions = {
         "format": "A4",
         "orientation": "portrait",
-        "border": "10mm"
+        "border": "5mm"
     };
 
 module.exports = {

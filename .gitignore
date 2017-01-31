@@ -9,6 +9,8 @@ typings
 .vscode
 
 reports/*.pdf
+screenshots/*
+
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

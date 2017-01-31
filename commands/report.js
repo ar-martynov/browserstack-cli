@@ -3,6 +3,7 @@
 const notifier = require('../utils/notifier');
 const reports = require('../services/report');
 const fs = require('fs');
+const cfg = require("../config.json");
 
 module.exports = {
 
@@ -52,6 +53,10 @@ function processBuilds(error, builds) {
         notifier.info('Project builds not found.');  process.exit(404);
     }
 
+    //Filters
+    //In order to view a subset of results, you can use the filter parameter to refine your results.
+    // The three values the parameter takes are running, done and failed.
+
     var build = undefined;
     {
         builds.some(function (item) {
@@ -81,7 +86,7 @@ function processBuilds(error, builds) {
         notifier.info(sessions.length + " build sessions was founded.");
         notifier.info("Generating report...");
 
-        var reportDest = "./reports/build_" +
+        var reportDest = cfg.reportsPath + "build_" +
             processBuilds.searchName.replace(' ', '_') + "_" +
             notifier.now("DD-MM-YYYY-hh-mm") + ".pdf";
 

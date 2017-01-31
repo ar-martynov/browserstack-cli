@@ -1,4 +1,6 @@
 {
+  "reportsPath": "./reports/",
+  "screenshotsPath": "./screenshots/",
   "browserstack": {
     "username": "anto401",
     "password": "6JtDc2Rwr4uvsDzP7mh7",
