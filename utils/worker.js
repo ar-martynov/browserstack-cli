@@ -1,9 +1,10 @@
 'use strict';
 
-var extend = require("../api/extend");
+const extend = require('../api/extend');
+const notifier = require('../utils/notifier');
 
-var pollWorkerRetries = 30;
-var pollWorkerRetryInterval = 2000;
+var pollWorkerRetries = 100;
+var pollWorkerRetryInterval = 3000;
 
 var encoding = process.env.TRAVIS ? "base64" : "utf8";
 module.exports.browserStack = {
@@ -82,6 +83,7 @@ function pollWorker(worker, getWorkerStatusFn, getWorkerIdFn, isWorkerRunningFn,
             }
 
             setTimeout(function() {
+                notifier.info("Awaiting screenshots job ending, please wait...");
                 pollWorkerState(id, callback);
             }, retryInterval);
         });

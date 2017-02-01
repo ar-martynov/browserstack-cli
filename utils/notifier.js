@@ -11,19 +11,19 @@ module.exports = {
 };
 
 function warning(msg) {
-    console.warn(chalk.red.bold.underline(   "[WARNING | " + now() + "] " + msg ));
-};
+    console.log(chalk.magenta.bold(`[WARNING | ${now()}] ${msg}`));
+}
 
 function info(msg, data) {
-    console.info(chalk.green.bold.underline( "[INFO | " + now() + "] " + msg ));
+    console.log(chalk.white.bold(`[INFO | ${now()}] ${msg}`));
     if (data) console.info(data);
-};
+}
 
 function error(msg, err) {
-    console.error(chalk.red.bold.underline(  "[ERROR | " + now() + "] " + msg ));
+    console.log(chalk.red.bold(`[ERROR | ${now()}] ${msg}`));
     if (err) console.error(err);
-};
+}
 
 function now(format) {
     return format ? moment().format(format) : moment().format('hh:mm:ss');
-};
+}

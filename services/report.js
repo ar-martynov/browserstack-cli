@@ -5,11 +5,13 @@ const htmlpdf = require('html-pdf');
 const defaults = require('lodash.defaults');
 const Promise = require('bluebird');
 
+// all options available here
+// https://github.com/marcbachmann/node-html-pdf
 const defaultOptions = {
-        "format": "A4",
-        "orientation": "portrait",
-        "border": "5mm"
-    };
+    "format": "A4",
+    "orientation": "portrait",
+    "border": "5mm"
+};
 
 module.exports = {
     create: create

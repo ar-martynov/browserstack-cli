@@ -2,128 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>{{build.name}}</title>
 </head>
 <body>
 
 <div class="container">
 
-    <div class="page-header">
-        <h3>{{build.name}}
-            <small>
-                | status: <b>{{build.status}}</b>
-                <span class="pull-right">{{generatedAt}}</span>
-            </small>
-        </h3>
-    </div>
+    <div class="row" style="margin-top: 400px;">
+        <div class="col-xs-12">
 
-    {{#each sessions}}
-        <div class="panel panel-default">
-
-            <div class="panel-heading">
-                <div class="row">
-
-                    <div class="col-xs-6">
-                        <dl class="dl-horizontal">
-                            <dt>Session hashed id:</dt>
-                            <dd><code>{{this.hashed_id}}</code></dd>
-                        </dl>
-                    </div>
-
-                    <div class="col-xs-2">
-                        <dl class="dl-horizontal">
-                            <dt>Status:</dt>
-                            <dd>{{this.status}}</dd>
-                        </dl>
-                    </div>
-
-                    <div class="col-xs-4">
-                        <dl class="dl-horizontal">
-                            <dt>Reason:</dt>
-                            <dd>{{this.reason}}</dd>
-                        </dl>
-                    </div>
-                </div>
-
+            <div class="page-header">
+                <h3>Domain: "{{domain.hostname}}"</h3>
             </div>
 
-            <div class="panel-body">
-
-                <div class="row">
-
-                    <div class="col-xs-3">
-                        <dl class="dl-horizontal">
-                            <dt>Project Name</dt>
-                            <dd>{{this.project_name}}</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Build Name</dt>
-                            <dd>{{this.build_name}}</dd>
-                        </dl>
-
+            <div class="panel panel-info" style="margin-bottom: 500px;">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <dl class="dl-horizontal">
+                                <dt>Job id:</dt>
+                                <dd><code>{{id}}</code></dd>
+                            </dl>
+                        </div>
+                        <div class="col-xs-4">
+                            <dl class="dl-horizontal">
+                                <dt>Generated at:</dt>
+                                <dd>{{generatedAt}}</dd>
+                            </dl>
+                        </div>
                     </div>
-
-                    <div class="col-xs-3">
-
-                        <dl class="dl-horizontal">
-                            <dt>OS:</dt>
-                            <dd>{{this.os}}</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>OS Version:</dt>
-                            <dd>{{this.os_version}}</dd>
-                        </dl>
-
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <dl class="dl-horizontal">
+                                <dt>Windows resolution:</dt>
+                                <dd><code>{{win_res}}</code></dd>
+                            </dl>
+                        </div>
+                        <div class="col-xs-3">
+                            <dl class="dl-horizontal">
+                                <dt>Mac resolution:</dt>
+                                <dd>{{mac_res}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-xs-3">
+                            <dl class="dl-horizontal">
+                                <dt>Orientation:</dt>
+                                <dd>{{orientation}}</dd>
+                            </dl>
+                        </div>
+                        <div class="col-xs-3">
+                            <dl class="dl-horizontal">
+                                <dt>Quality:</dt>
+                                <dd>{{quality}}</dd>
+                            </dl>
+                        </div>
                     </div>
-
-                    <div class="col-xs-3">
-                        <dl class="dl-horizontal">
-                            <dt>Browser:</dt>
-                            <dd>{{this.browser}}</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Browser version:</dt>
-                            <dd>{{this.browser_version}}</dd>
-                        </dl>
-                    </div>
-
-                    <div class="col-xs-3">
-                        <dl class="dl-horizontal">
-                            <dt>Duration</dt>
-                            <dd>{{this.duration}}</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>Device:</dt>
-                            <dd>{{this.device}}</dd>
-                        </dl>
-                    </div>
-
                 </div>
+            </div>
 
-                <div class="row">
+                {{#each screenshots}}
+                    <div class="panel panel-info">
 
-                    <div class="col-xs-12">
+                        <div class="panel-heading">
+                            <div class="row">
 
-                        <div class="list-group">
-                            <a class="list-group-item" target="_blank"
-                               style="word-wrap: break-word;" href="{{this.logs}}">LOGS: </a>
-                            <a class="list-group-item" target="_blank"
-                               style="word-wrap: break-word;" href="{{this.browser_url}}">BROWSER URL: </a>
-                            <a class="list-group-item" target="_blank"
-                               style="word-wrap: break-word;" href="{{this.public_url}}">PUBLIC URL: </a>
-                            <a class="list-group-item" target="_blank"
-                               style="word-wrap: break-word;" href="{{this.video_url}}">VIDEO URL: </a>
+                                <div class="col-xs-2">
+                                    <dl class="dl-horizontal">
+                                        <dt>OS:</dt>
+                                        <dd><code>{{os}}</code></dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-xs-2">
+                                    <dl class="dl-horizontal">
+                                        <dt>OS ver.:</dt>
+                                        <dd><code>{{os_version}}</code></dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-xs-2">
+                                    <dl class="dl-horizontal">
+                                        <dt>Browser:</dt>
+                                        <dd><code>{{browser}}</code></dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <dl class="dl-horizontal">
+                                        <dt>Browser ver.:</dt>
+                                        <dd><code>{{browser_version}}</code></dd>
+                                    </dl>
+                                </div>
+
+                                {{#if device}}
+                                    <div class="col-xs-3">
+                                        <dl class="dl-horizontal">
+                                            <dt>Device:</dt>
+                                            <dd><code>{{device}}</code></dd>
+                                        </dl>
+                                    </div>
+                                {{/if}}
+
+                            </div>
+                        </div>
+
+                        <div class="panel-body" style="height: 978px; word-wrap: break-word;">
+                            <a href="{{image_url}}" target="_blank">
+                                <img src="{{image_url}}" class="center-block" style="max-height: 900px;">
+                            </a>
                         </div>
 
                     </div>
 
-                </div>
+                {{/each}}
 
-            </div>
         </div>
-    <br>
-    {{/each}}
+    </div>
+
 </div>
 
 <style type="text/css">
@@ -1260,6 +1254,7 @@
         display: inline-block;
         max-width: 100%;
         height: auto;
+        max-height: auto;
     }
     .img-circle {
         border-radius: 50%;

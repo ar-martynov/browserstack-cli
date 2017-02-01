@@ -1,9 +1,18 @@
 {
   "reportsPath": "./reports/",
-  "screenshotsPath": "./screenshots/",
+  "jobsPath": "./logs/jobs.log",
+
   "browserstack": {
     "username": "anto401",
     "password": "6JtDc2Rwr4uvsDzP7mh7",
     "version": 4
+  },
+
+  "phantom":{
+    "path": "",
+    "resolutions": [
+      { "width": 1920, "height": 1080, "platform": "Default desktop" },
+      { "width": 1366, "height": 768,  "platform": "Default notebook" }
+    ]
   }
 }

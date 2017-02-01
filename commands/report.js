@@ -32,7 +32,7 @@ function init(app, bs) {
 function cmdHandler (buildName) {
 
     if (!buildName) {
-        notifier.error('"build name/id" parameter required'); return;
+        notifier.error('"build name/id" parameter required'); process.exit(1);
     }
 
     notifier.info('Trying to get build.');
@@ -59,7 +59,7 @@ function processBuilds(error, builds) {
 
     var build = undefined;
     {
-        builds.some(function (item) {
+        builds.some((item) => {
             if (item.name === processBuilds.searchName) {
                 build = item; return true;
             }
@@ -73,7 +73,7 @@ function processBuilds(error, builds) {
     notifier.info("Build found: ", build);
     notifier.info('Getting build sessions.');
 
-    browserstack.automateClient.getSessions(build.hashed_id, function(error, sessions){
+    browserstack.automateClient.getSessions(build.hashed_id, (error, sessions) => {
 
         if (error) {
             notifier.error('Error while sessions retrieving.', error);  process.exit(500);
@@ -105,13 +105,13 @@ function processBuilds(error, builds) {
 
             .create(document)
 
-            .then(function(res) {
+            .then((res) => {
                 notifier.info("Report saved to path: ", res.filename);
                 notifier.info("Command excecuted.");
                 process.exit(200); //success
             })
 
-            .catch(function(error) {
+            .catch((error) => {
                 notifier.error("Error while report saving: ", error); process.exit(500);
             });
     });

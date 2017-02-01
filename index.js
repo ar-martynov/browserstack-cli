@@ -15,6 +15,7 @@ var browserstack = require('./services/browserstack').init(cfg);
 require('./commands/info').init(app, browserstack);
 require('./commands/report').init(app, browserstack);
 require('./commands/screenshot').init(app, browserstack);
+require('./commands/phantom').init(app);
 
 // current app version
 app.version('bs-cli: ' + pkg.version);
