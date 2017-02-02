@@ -143,10 +143,10 @@ function processResult() {
 
         notifier.info(`${item.filename} loaded`);
 
-        var task = item.page.render(fullPath);
+        var screenshotTask = item.page.render(fullPath);
         {
-            tasks.push(task);
-            task.then((isSuccess) => {
+            tasks.push(screenshotTask);
+            screenshotTask.then((isSuccess) => {
 
                 if (!isSuccess) {
                     notifier.error(`Error while "${fullPath}" saving`);
