@@ -1,5 +1,5 @@
 {
-  "reportsPath": "./reports/",
+  "reportsPath": "C:/reports/",
   "jobsPath": "./logs/jobs.log",
 
   "browserstack": {

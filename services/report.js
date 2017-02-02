@@ -14,8 +14,13 @@ const defaultOptions = {
 };
 
 module.exports = {
-    create: create
+    create: create,
+    compileHtml: compileHtml,
 };
+
+function compileHtml(document) {
+    return Handlebars.compile(document.template)(document.context);
+}
 
 function create(document) {
 
