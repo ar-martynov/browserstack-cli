@@ -7,13 +7,13 @@ module.exports = {
 var browserstack = undefined;
 
 function init(cfg) {
-    if (!cfg.browserstack){
+    if (!cfg.browserstack || !cfg.browserstack.api){
         throw Error('BrowserStack credentials not passed with config');
     }
 
     return browserstack = {
-        'client': BrowserStack.createClient(cfg.browserstack),
-        'automateClient': BrowserStack.createAutomateClient(cfg.browserstack),
-        'screenshotClient': BrowserStack.createScreenshotClient(cfg.browserstack)
+        'client': BrowserStack.createClient(cfg.browserstack.api),
+        'automateClient': BrowserStack.createAutomateClient(cfg.browserstack.api),
+        'screenshotClient': BrowserStack.createScreenshotClient(cfg.browserstack.api)
     };
 }

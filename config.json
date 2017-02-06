@@ -3,9 +3,105 @@
   "jobsPath": "./logs/jobs.log",
 
   "browserstack": {
-    "username": "kirillk4",
-    "password": "CBk2dhd2qFU6jb5CpsFx",
-    "version": 4
+
+    "local": false,
+
+    "api": {
+      "username": "test",
+      "password": "test",
+      "version": 4
+    },
+
+    "resolutions": {
+      "win": "1920x1080",
+      "mac": "1920x1080"
+    },
+
+    "browsers": [
+      {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "chrome",
+        "browser_version": "50.0"
+      },
+      {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "firefox",
+        "browser_version": "45.0"
+      },
+      {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "ie",
+        "browser_version": "11.0"
+      },
+      {
+        "os": "Windows",
+        "os_version": "10",
+        "browser": "edge",
+        "browser_version": "13.0"
+      },
+      {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "chrome",
+        "mac_res": "1920x1080",
+        "browser_version": "50.0"
+      },
+      {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "firefox",
+        "browser_version": "45.0"
+      },
+      {
+        "os": "OS X",
+        "os_version": "El Capitan",
+        "browser": "safari",
+        "browser_version": "9.1"
+      },
+      {
+        "os": "ios",
+        "os_version": "8.3",
+        "browser": "Mobile Safari",
+        "device": "iPad Mini 2",
+        "browser_version": null,
+        "wait_time": 60
+      },
+      {
+        "os": "ios",
+        "os_version": "8.3",
+        "browser": "Mobile Safari",
+        "device": "iPad Air",
+        "browser_version": null,
+        "wait_time": 60
+      },
+      {
+        "os": "ios",
+        "os_version": "7.0",
+        "browser": "Mobile Safari",
+        "device": "iPhone 5S",
+        "browser_version": null,
+        "wait_time": 60
+      },
+      {
+        "os": "ios",
+        "os_version": "8.3",
+        "browser": "Mobile Safari",
+        "device": "iPhone 6",
+        "browser_version": null,
+        "wait_time": 60
+      },
+      {
+        "os": "ios",
+        "os_version": "8.3",
+        "browser": "Mobile Safari",
+        "device": "iPhone 6 Plus",
+        "browser_version": null,
+        "wait_time": 60
+      }
+    ]
   },
 
   "phantom":{

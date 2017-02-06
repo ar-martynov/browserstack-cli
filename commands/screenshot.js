@@ -4,6 +4,7 @@ const notifier = require('../utils/notifier');
 const fs = require('fs');
 const url = require('url');
 const util = require('../utils/worker');
+const fileUtils = require('../utils/file');
 const cfg = require('../config.json');
 const reports = require('../services/report');
 
@@ -14,6 +15,8 @@ module.exports = {
 };
 
 var browserstack = undefined;
+var domain = undefined;
+var reportName = undefined;
 
 function init(app, bs) {
 
@@ -30,21 +33,11 @@ function init(app, bs) {
 
 };
 
-function cmdHandler(url) {
-
-    if (!url) {
-        notifier.error('URL parameter not passed'); process.exit(1);
-    }
-
-    var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
-
-    if (!url.match(regex)) {
-        notifier.error('Incorrect URL passed.'); process.exit(1);
-    }
+function cmdHandler(incomingUrl) {
 
     notifier.info('Parsing testing browsers data.');
     {
-        var browsersList = require("../browsers.json");
+        var browsersList = cfg.browserstack.browsers;
 
         if (!browsersList || browsersList.length === 0) {
             notifier.error('Browsers list not passed, please check "browser.json" file'); process.exit(1);
@@ -55,13 +48,20 @@ function cmdHandler(url) {
 
     notifier.info('Generating screenshots, please wait...');
     {
-        browserstack.screenshotClient
-            .generateScreenshots({
-                url: url,
-                browsers: browsersList,
-                mac_res: '1920x1080',
-                win_res: '1920x1080'
-            }, processScreenshots);
+        domain = url.parse(incomingUrl);
+
+        reportName = `screenshots_browserstack_${domain.hostname}_${notifier.now("DD-MM-YYYY-hh-mm")}`
+            .replace('www.', '').replace(/\./g, '_');
+
+        browserstack.screenshotClient.generateScreenshots({
+
+            url: incomingUrl,
+            local: cfg.browserstack.local,
+            browsers: browsersList,
+            mac_res: cfg.browserstack.resolutions.mac,
+            win_res: cfg.browserstack.resolutions.win
+
+        }, processScreenshots);
     }
 
     return;
@@ -73,7 +73,7 @@ function processScreenshots(err, job) {
         notifier.error('Error while job running: ', err); process.exit(500);
     }
 
-    saveJob(job.job_id);
+    saveJob(job);
 
     util.pollScreenshotWorker(browserstack.screenshotClient, job, function(err, isRunning) {
         if (!err && !isRunning) {
@@ -96,43 +96,35 @@ function generateReport(err, job) {
 
     notifier.info('Downloading screenshots for report, please wait...');
 
-    var
-        domainName = url.parse(job.screenshots[0].url),
-
-        reportDest = cfg.reportsPath + "screenshots_browserstack_" +
-                     domainName.hostname + "_" +
-                     notifier.now("DD-MM-YYYY-hh-mm") + ".pdf",
-
-        document = {
-            template: fs.readFileSync('./templates/screenshots-browserstack-report.hbs', 'utf8'),
-            path: reportDest, context: job
-        };
+    var document = {
+        template: fs.readFileSync('./templates/screenshots-browserstack-report.hbs', 'utf8'),
+        context: job
+    };
 
     job.generatedAt = notifier.now("DD/MM/YYYY hh:mm:ss");
-    job.domain = domainName;
+    job.domain = domain.hostname;
 
-    reports
+    var htmlReport = reports.compileHtml(document);
+    {
+        var reportDest = fileUtils.saveReportSync(reportName, htmlReport, handleError);
+        notifier.info("Report saved to path: ", reportDest);
+        notifier.info("Command excecuted.");
+    }
 
-        .create(document)
-
-        .then(function(res) {
-            notifier.info("Report saved to path: ", res.filename);
-            notifier.info("Command excecuted.");
-            process.exit(0); //success
-        })
-
-        .catch(function(error) {
-            notifier.error("Error while report saving: ", error); process.exit(500);
-        });
-
-    return;
+    process.exit(0);
 }
 
-function saveJob(id){
+function saveJob(job){
     var toFile = JSON.stringify({
+        type: 'browserstack',
+        domain: domain.hostname,
         date: notifier.now('DD/MM/YYYY hh.mm.ss'),
-        id: id
+        id: job.job_id
     }) + '\n';
 
     fs.appendFileSync(cfg.jobsPath, toFile, 'utf8');
+}
+
+function handleError(err) {
+    notifier.error('Error fired by phantom.js: ', err);
 }

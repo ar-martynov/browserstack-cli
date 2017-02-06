@@ -1,13 +1,13 @@
 'use strict';
 
 const notifier = require('../utils/notifier');
+const fileUtils = require('../utils/file');
 const reports = require('../services/report');
 const cfg = require('../config.json');
 const fs = require('fs');
 const url = require('url');
 const phantom = require('phantom');
 const path = require('path');
-
 
 // settings for phantom.js cli
 const phantomOpts = [
@@ -33,9 +33,6 @@ var domain = undefined;
 var phantomInstance = undefined;
 var reportName = undefined;
 
-var bootstrapJs = 'bootstrap.js';
-var bootstrapCss = 'bootstrap.css';
-
 function init(app) {
 
     app
@@ -54,20 +51,18 @@ function init(app) {
 function cmdHandler(link) {
 
     if (!link) {
-        notifier.error('URL parameter not passed');
-        process.exit(1);
+        notifier.error('URL parameter not passed'); process.exit(1);
     }
 
     var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
 
     if (!link.match(regex)) {
-        notifier.error('Incorrect URL passed.');
-        process.exit(1);
+        notifier.error('Incorrect URL passed.'); process.exit(1);
     }
 
     pageLink = link;
     domain = url.parse(pageLink).hostname.replace('www.', '');
-    reportName = `phantom_${domain}_${notifier.now("DD-MM-YYYY-hh-mm")}`;
+    reportName = `phantom_${domain}_${notifier.now("DD-MM-YYYY-hh-mm")}`.replace(/\./g, '_');
 
     notifier.info(`Instantiating phantom.js with URL: ${link}`);
 
@@ -174,9 +169,6 @@ function generateReport() {
 
     notifier.info('All tasks completed, report generation started.');
 
-    var libsPath = path.normalize(`${cfg.reportsPath}/${reportName}/libs/`);
-    var reportDest = `${cfg.reportsPath}${reportName}/${reportName}.html`;
-
     var document = {
         template: fs.readFileSync('./templates/screenshots-phantom-report.hbs', 'utf8'),
         context: {
@@ -186,21 +178,13 @@ function generateReport() {
         },
     };
 
-    // write report to file
-    fs.writeFile(reportDest, reports.compileHtml(document), (err) => {
-        if (err) {
-            return console.log(err);
-        }
+    var htmlReport = reports.compileHtml(document);
+    {
+        fileUtils.saveReportSync(reportName, htmlReport, handleError);
+        notifier.info("Report saved!");
+    }
 
-        // copy libs to path
-        var src = path.normalize(`./templates/libs/${bootstrapJs}`);
-        copyFile(src, libsPath, bootstrapJs);
-
-        src = path.normalize(`./templates/libs/${bootstrapCss}`);
-        copyFile(src, libsPath, bootstrapCss);
-
-        notifier.info("Report saved!"); process.exit(0);
-    });
+     process.exit(0);
 }
 
 function configurePage(opts) {
@@ -213,7 +197,7 @@ function configurePage(opts) {
     page.property('viewportSize', resolution);
     page.property('zoomFactor', 1);
 
-    page.on("onConsoleMessage", function (msg, lineNum, sourceId) {
+    page.on("onConsoleMessage", function (msg) {
         logs.messages.push(msg);
         notifier.warning(`Console message ${opts.filename}: "${msg}"`);
     });
@@ -240,11 +224,4 @@ function handleError(err) {
             phantomInstance = undefined;
         }
     }
-}
-
-
-function copyFile(src, destFolder, destFilename) {
-    var data = fs.readFileSync(src, 'utf8').toString();
-    if (!fs.existsSync(destFolder)) fs.mkdirSync(destFolder);
-    fs.writeFileSync(path.normalize(destFolder + destFilename),data);
 }
