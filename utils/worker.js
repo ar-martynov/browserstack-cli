@@ -3,8 +3,8 @@
 const extend = require('../api/extend');
 const notifier = require('../utils/notifier');
 
-var pollWorkerRetries = 100;
-var pollWorkerRetryInterval = 3000;
+var pollWorkerRetries = 30;
+var pollWorkerRetryInterval = 5000;
 
 var encoding = process.env.TRAVIS ? "base64" : "utf8";
 module.exports.browserStack = {
@@ -50,7 +50,7 @@ module.exports.pollScreenshotWorker = function pollScreenshotWorker(client, work
             return worker && (worker.job_id || worker.id);
         },
         function isWorkerRunning(worker) {
-            return worker && worker.state === "running";
+            return worker && worker.state === "done";
         }, callback);
 };
 

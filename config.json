@@ -3,28 +3,30 @@
   "jobsPath": "./logs/jobs.log",
 
   "browserstack": {
-    "username": "anto401",
-    "password": "6JtDc2Rwr4uvsDzP7mh7",
+    "username": "kirillk4",
+    "password": "CBk2dhd2qFU6jb5CpsFx",
     "version": 4
   },
 
   "phantom":{
     "resolutions": [
-      { "width": 1366, "height": 768,  "platform": "Laptop" },
-      { "width": 1920, "height": 1080, "platform": "Regular 1080p desktop" },
+
+      { "width": 750,  "height": 1334, "platform": "IPhone 6, 6S, 7" },
+      { "width": 1080, "height": 1920, "platform": "IPhone 6 Plus, 6S Plus, 7 Plus" },
 
       { "width": 1280, "height": 800,  "platform": "Macbook Pro 13.3'" },
+      { "width": 1366, "height": 768,  "platform": "Laptop" },
       { "width": 1440, "height": 900,  "platform": "Macbook Pro 15.4'" },
+      { "width": 1920, "height": 1080, "platform": "Regular 1080p desktop" },
       { "width": 1920, "height": 1200, "platform": "Macbook Pro 17'" },
+      { "width": 2048, "height": 1536, "platform": "IPad Mini" },
+      { "width": 2304, "height": 1440, "platform": "MacBook (Retina) 12" },
       { "width": 2560, "height": 1440, "platform": "iMac 27'" },
-      { "width": 2560, "height": 1600, "platform": "Macbook Pro 13.3' Retina display" },
-      { "width": 2880, "height": 1800, "platform": "Macbook Pro 15.4' Retina display" },
-
-      { "width": 750,  "height": 1334, "platform": "IPhone 7" },
-      { "width": 1242, "height": 2208, "platform": "IPhone 7 Plus" },
-
-      { "width": 1536, "height": 2048, "platform": "IPad Mini" },
-      { "width": 2048, "height": 2732, "platform": "IPad Pro" }
+      { "width": 2560, "height": 1600, "platform": "Macbook (Retina) Pro 13.3'" },
+      { "width": 2732, "height": 2048, "platform": "IPad Pro" },
+      { "width": 2880, "height": 1800, "platform": "Macbook (Retina) Pro 15.4'" },
+      { "width": 4096, "height": 2304, "platform": "iMac (Retina) 4K 21.5'" },
+      { "width": 5120, "height": 2880, "platform": "iMac (Retina) 5K Display 27'" }
     ]
   }
 }

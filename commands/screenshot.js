@@ -56,7 +56,12 @@ function cmdHandler(url) {
     notifier.info('Generating screenshots, please wait...');
     {
         browserstack.screenshotClient
-            .generateScreenshots({ url: url, browsers: browsersList }, processScreenshots);
+            .generateScreenshots({
+                url: url,
+                browsers: browsersList,
+                mac_res: '1920x1080',
+                win_res: '1920x1080'
+            }, processScreenshots);
     }
 
     return;
@@ -76,7 +81,7 @@ function processScreenshots(err, job) {
             // little point in stalling the test run waiting for this job to complete
 
             // print warning in console for user to decide
-            notifier.warning("Worker "+ job.job_id +" did not run within timeout"); return;
+            notifier.warning("Worker "+ job.job_id +" did not run within timeout");
         }
 
         browserstack.screenshotClient.getJob(job.job_id, generateReport);
@@ -94,8 +99,8 @@ function generateReport(err, job) {
     var
         domainName = url.parse(job.screenshots[0].url),
 
-        reportDest = cfg.reportsPath + "screenshots_browserstack" +
-                     domainName.hostname.split('.')[0] + "_" +
+        reportDest = cfg.reportsPath + "screenshots_browserstack_" +
+                     domainName.hostname + "_" +
                      notifier.now("DD-MM-YYYY-hh-mm") + ".pdf",
 
         document = {
@@ -113,7 +118,7 @@ function generateReport(err, job) {
         .then(function(res) {
             notifier.info("Report saved to path: ", res.filename);
             notifier.info("Command excecuted.");
-            process.exit(200); //success
+            process.exit(0); //success
         })
 
         .catch(function(error) {

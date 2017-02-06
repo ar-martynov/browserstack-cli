@@ -141,9 +141,7 @@ function processResult() {
 
         var fullPath = path.normalize(`${cfg.reportsPath}${reportName}/screenshots/${item.filename}.jpg`);
 
-        notifier.info(`${item.filename} loaded`);
-
-        var screenshotTask = item.page.render(fullPath);
+        var screenshotTask = item.page.render(fullPath, {quality:50});
         {
             tasks.push(screenshotTask);
             screenshotTask.then((isSuccess) => {
@@ -213,6 +211,7 @@ function configurePage(opts) {
 
     page.property('userAgent', userAgent);
     page.property('viewportSize', resolution);
+    page.property('zoomFactor', 1);
 
     page.on("onConsoleMessage", function (msg, lineNum, sourceId) {
         logs.messages.push(msg);

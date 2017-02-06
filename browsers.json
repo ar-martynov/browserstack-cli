@@ -2,28 +2,24 @@
   {
     "os": "Windows",
     "os_version": "10",
-    "win_res": "1920x1080",
     "browser": "chrome",
     "browser_version": "50.0"
   },
   {
     "os": "Windows",
     "os_version": "10",
-    "win_res": "1920x1080",
     "browser": "firefox",
     "browser_version": "45.0"
   },
   {
     "os": "Windows",
     "os_version": "10",
-    "win_res": "1920x1080",
     "browser": "ie",
     "browser_version": "11.0"
   },
   {
     "os": "Windows",
     "os_version": "10",
-    "win_res": "1920x1080",
     "browser": "edge",
     "browser_version": "13.0"
   },
@@ -32,44 +28,61 @@
     "os": "OS X",
     "os_version": "El Capitan",
     "browser": "chrome",
+    "mac_res": "1920x1080",
     "browser_version": "50.0"
   },
   {
     "os": "OS X",
     "os_version": "El Capitan",
-    "mac_res": "1920x1080",
-    "win_res": "1920x1080",
     "browser": "firefox",
     "browser_version": "45.0"
   },
   {
     "os": "OS X",
     "os_version": "El Capitan",
-    "mac_res": "1920x1080",
-    "win_res": "1920x1080",
     "browser": "safari",
     "browser_version": "9.1"
   },
 
+
   {
-    "os": "android",
-    "os_version": "5.0",
-    "browser": "Android Browser",
-    "device": "Google Nexus 9",
-    "browser_version": null
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPad Mini 2",
+    "browser_version": null,
+    "wait_time": 60
   },
   {
-    "os": "android",
-    "os_version": "5.0",
-    "browser": "Android Browser",
-    "device": "Google Nexus 6",
-    "browser_version": null
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPad Air",
+    "browser_version": null,
+    "wait_time": 60
   },
   {
-    "os": "android",
-    "os_version": "5.0",
-    "browser": "Android Browser",
-    "device": "Google Nexus 5",
-    "browser_version": null
+    "os": "ios",
+    "os_version": "7.0",
+    "browser": "Mobile Safari",
+    "device": "iPhone 5S",
+    "browser_version": null,
+    "wait_time": 60
+  },
+  {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPhone 6",
+    "browser_version": null,
+    "wait_time": 60
+  },
+  {
+    "os": "ios",
+    "os_version": "8.3",
+    "browser": "Mobile Safari",
+    "device": "iPhone 6 Plus",
+    "browser_version": null,
+    "wait_time": 60
   }
 ]
